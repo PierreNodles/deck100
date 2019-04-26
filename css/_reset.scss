@@ -16,6 +16,7 @@ body {
 
   * {
     box-sizing: border-box;
+    margin:0px;
   }
 
   h1, h2, h3, h4, h5, h6, p {
@@ -26,12 +27,9 @@ body {
   }
 
   h3 {
-    font-size:1.6em;
+    font-size:2.2em;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    text-transform: uppercase;
-  }
 
   a {
     text-decoration: none;
@@ -161,6 +159,13 @@ body {
     justify-content:center;
   }
 
+  h1 {
+      font-size: 4em;
+      font-family: 'RobotoCondensed';
+      font-weight: 700;
+      color:white;
+      margin:0px;
+  }
 
   h2 {
     font-size : 4em;
@@ -178,10 +183,8 @@ body {
   }
 
   h3 {
-    text-transform : uppercase;
     font-family : 'RobotoCondensed';
     font-weight:700;
-    font-style:italic;
   }
 
   h4 {
@@ -196,10 +199,19 @@ body {
 
   p {
     font-family : "RobotoCondensed";
-    font-style: italic;
     margin-bottom:30px;
     font-size:16px;
     line-height:20px;
+    &.italic {
+      font-style: italic;
+    }
+  }
+
+  span {
+    font-family : "RobotoCondensed";
+    &.italic {
+      font-style:italic;
+    }
   }
 
 
