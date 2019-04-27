@@ -123,7 +123,7 @@
   }
 
   /*******************************
-  ********* MAIN CONTENT - PART ONE
+  ********* MAIN CONTENT
   *******************************/
 
   .main_content {
@@ -211,7 +211,9 @@
 
   }
 
-  /******* PARALLAX  ********/
+  /*****************
+  ***** PARALLAX
+  ******************/
 
   .parallax {
     background-image : url('../img/bg-parallax.png');
@@ -230,16 +232,12 @@
 
 
 
-  /*******************************
-  ********* MAIN CONTENT - PART 2
-  *******************************/
-
-
   /************************
-  *********** slider_products
+  *********** SLIDER PRODUITS
   *************************/
+
   .slider_products {
-    padding:200px 0px 20px;
+    padding:200px 0px 120px;
     position:relative;
 
 
@@ -318,6 +316,42 @@
           display:flex
         }
 
+        /*****************
+        ETIQUETTE PRIX
+        ******************/
+
+        .product_price {
+          text-align:center;
+          margin-bottom: 75px;
+          position:absolute;
+          z-index:999;
+
+          @include sm {
+            margin-bottom:25px;
+            margin-top:40px;
+          }
+
+          span {
+            text-align:center;
+            font-family: "RobotoCondensed", sans-serif;
+            font-weight:700;
+            font-size:45px;
+            padding : 6px 30px 10px;
+            background-color : #ffea28;
+          }
+        }
+
+        a {
+          padding: 10px 35px 10px 15px;
+          background-color: #ffea28;
+          color: #333333;
+          text-transform: uppercase;
+          font-weight: 700;
+          font-family: "RobotoCondensed", sans-serif;
+          position: absolute;
+          font-size: 12px;
+        }
+
         /**********************
         /****** LEFT GENERIQUE
         **********************/
@@ -330,44 +364,13 @@
             justify-content: center;
           }
 
-          figure.product {
+          figure.product_img{
             margin:0;
             position:relative;
             z-index:2;
 
           }
 
-          .product_price {
-            text-align:center;
-            margin-bottom: 75px;
-            position:absolute;
-            z-index:999;
-
-            @include sm {
-              margin-bottom:25px;
-              margin-top:40px;
-            }
-
-            span {
-              text-align:center;
-              font-family: "RobotoCondensed", sans-serif;
-              font-weight:700;
-              font-size:45px;
-              padding : 6px 30px 10px;
-              background-color : #ffea28;
-            }
-          }
-
-          a {
-            padding: 10px 35px 10px 15px;
-            background-color: #ffea28;
-            color: #333333;
-            text-transform: uppercase;
-            font-weight: 700;
-            font-family: "RobotoCondensed", sans-serif;
-            position: absolute;
-            font-size: 12px;
-          }
         }
 
 
@@ -380,10 +383,9 @@
           .product_info {
             padding-right:50px;
             h3 {
-              margin-top:0px;
-              margin-bottom:15px;
+              margin-top:-20px;
               text-align: right;
-              font-size:2.8em;
+              font-size:2.4em;
               font-style: italic;
             }
             p {
@@ -441,8 +443,13 @@
           .left {
 
 
-            figure.product {
+            figure.product_img{
               max-width:50%;
+              position:absolute;
+              opacity:0;
+              &.active {
+                opacity:1;
+              }
 
               @include sm {
                 max-width:50%;
@@ -490,7 +497,7 @@
 
           .left {
 
-            figure.product {
+            figure.product_img{
               max-width:100%;
               position:absolute;
               left:-150px;
@@ -522,44 +529,181 @@
         /*********************
         // SPECIFIQUE ACCESSOIRES
         **********************/
+
         &.accessoires {
+          min-height:550px;
 
 
           .left {
 
-            figure.product {
-              max-width:100%;
-              position:absolute;
-              left:-150px;
-              padding-top:20%;
-              z-index:0;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: flex-start;
 
-              @include sm {
-                max-width:50%;
+            .product {
+              position:relative;
+
+              figure.product_img {
+                position:relative;
+                max-width:100%;
+                z-index:0;
+
+                @include sm {
+                  max-width:50%;
+                }
+
+                img {
+                  max-width:100%;
+                  width:100%;
+                }
+
               }
 
-              img {
-                max-width:120%;
-                width:120%;
+
+              &.trucks {
+
+                .product_price {
+                  top: -40%;
+                  left: 50%;
+                }
+
               }
-            }
 
-            .product_price {
-              top:20%;
-              right:0;
-            }
+              &.tool {
+                figure.product_img {
+                  width:80%;
+                }
 
-            a {
-              top:35%;
-              right:-70px;
+                .product_price {
+                  top: -35%;
+                  left: 70%;
+                }
+
+              }
             }
           }
+
+
+
+
+          .right {
+
+            .product {
+              position:absolute;
+
+
+
+              figure.product_img {
+                position:relative;
+                max-width:100%;
+                z-index:0;
+
+                @include sm {
+                  max-width:50%;
+                }
+
+                img {
+                  max-width:100%;
+                  width:100%;
+                }
+
+              }
+
+              .product_price {
+                top:20%;
+                right:0;
+              }
+
+              &.vis {
+                top:35%;
+                left:0;
+
+                figure.product_img {
+                  width:80%;
+                }
+
+                .product_price {
+                  top: 0%;
+                  right: 15%;
+                }
+
+              }
+
+              &.grip {
+                top:40px;
+                right:0;
+
+                figure.product_img {
+                  width:80%;
+                }
+
+                .product_price {
+                  top: 10%;
+                  right: 80%;
+                }
+
+              }
+            }
+
+            .product-cta {
+              a {
+                bottom:15%;
+                right:0;
+              }
+            }
+
+          }
+
         }
       }
+    }
+  }
 
+  /************************
+  **** GREETINGS FROM LILLE
+  ************************/
+
+  .greetings {
+    background-image: url('../img/greetings_1.jpg');
+    background-size: cover;
+    background-position:center;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    min-height:800px;
+    position:relative;
+    padding-bottom:100px;
+
+    figure {
+      max-width: 30%;
+    }
+
+    ul {
+      display: flex;
+      position: absolute;
+      bottom: 10%;
+      margin: auto;
+      padding: 0 !important;
+      li {
+        width: 12px;
+        height: 12px;
+        background-color: white;
+        margin: 0 10px;
+        list-style: none;
+        border-radius: 50%;
+        opacity:0.5;
+        &.active {
+          opacity:1;
+        }
+        &:hover {
+          opacity:1;
+          cursor: pointer;
+        }
+      }
     }
 
   }
+
 
 
 

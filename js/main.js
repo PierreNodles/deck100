@@ -1,6 +1,6 @@
 jQuery(function($) {
 
-var $window = $(window);
+  var $window = $(window);
 
   //////////////////////
   /////////// JUMBOTRON
@@ -127,8 +127,46 @@ var $window = $(window);
     setSliderHeight();
   });
 
+  ///////////////////////////
+  //// DECK 100 BOARD switch
+  ///////////////////////////
+
+
+  // LANCEMENT DU DEFILEMENT AUTOMATIQUE DU SLIDER_PRODUCT
+
+  var $imgs = $('.product_slide.deck100 figure');
+  indexImg = $imgs.length - 1, // on définit l'index du dernier élément
+  iImg = 0, // on initialise un compteur
+  $currentImg = $imgs.eq(indexImg); // enfin, on cible la slide courante, qui possède l'index i (0 pour l'instant)
+  $currentImg.toggleClass('active');
+
+  function slider(){
+
+    setTimeout(function(){
+
+      if (iImg > indexImg) {
+        iImg = 0;
+      }
+
+$imgs.each(function(){
+  $(this).removeClass('active');
+})
+      $currentImg = $imgs.eq(iImg);
+      $currentImg.addClass('active');
+      iImg++;
+      slider();
+
+    }, 3000);
+
+
+  }
+
+  slider();
+
+
+
   //////////////////////
-  ///// SIZE VIDEO SLIDER
+  ///// SLIDE VIDEO
   //////////////////////
 
   var width = $('.product_video iframe').width();
@@ -137,21 +175,39 @@ var $window = $(window);
 
 
 
+////////////////////////
+// GREETINGS FROM LILLE
+///////////////////////
+
+var $puce = $('.puce');
+
+$puce.click(function(){
+  $puce.removeClass('active');
+  $(this).addClass('active');
+  var position = $(this).attr('position');
+
+  switch (position) {
+  case '0':
+  $('.greetings').css('background-image', "url('img/greetings_1.jpg')");
+  break;
+  case '1':
+  $('.greetings').css('background-image', "url('img/greetings_2.jpg')");
+  break;
+  case '2':
+  $('.greetings').css('background-image', "url('img/greetings_3.jpg')");
+  break;
+  case '3':
+  $('.greetings').css('background-image', "url('img/greetings_4.jpg')");
+  break;
 
 
+  default:
+  console.log("no match");
+
+}
 
 
-
-
-
-
-
-  // Autoplay video on click
-  // $('#play-video, .video figure .fas').on('click', function(ev) {
-  //   $(this).parent().fadeOut();
-  //   thevid = $('#video');
-  //   $("#video")[0].src += "?autoplay=1";
-  // });
+});
 
 
 
