@@ -177,11 +177,15 @@
 
     }
 
-    /*********** Plateau **************/
+    /*********** Features **************/
 
-    .plateau {
+    .features {
+      position:relative;
+      margin-bottom:150px;
 
       .board {
+        display:none;
+        position:absolute;
 
         figure {
           max-width:75%;
@@ -236,8 +240,8 @@
   *********** SLIDER PRODUITS
   *************************/
 
-  .slider_products {
-    padding:200px 0px 120px;
+  .slider_products, .deck120  {
+    padding:100px 0px 120px;
     position:relative;
 
 
@@ -655,6 +659,60 @@
           }
 
         }
+
+        /*********************
+        // SPECIFIQUE DECK 120
+        **********************/
+
+
+        &.deck120 {
+          position:relative;
+
+
+          .left {
+
+
+            figure.product_img{
+              max-width:50%;
+              opacity:1;
+
+              @include sm {
+                max-width:50%;
+              }
+
+            }
+
+            .product_price {
+              top:20%;
+              left:45%;
+
+            }
+
+            a {
+              top:35%;
+              left:55%;
+            }
+          }
+
+          .right {
+            #size_1 {
+              background-color: #248b10 !important;
+            }
+            #size_2 {
+              background-color: #e5dd02;
+            }
+            #size_3 {
+              background-color: #0d4870;
+            }
+            #size_4 {
+              background-color: #d61616;
+            }
+            #size_5 {
+              background-color: #0f0f0f;
+            }
+          }
+        }
+
       }
     }
   }
@@ -703,6 +761,149 @@
     }
 
   }
+
+
+  /************************
+  ************ BOARD SIZE
+  ************************/
+
+  .board_size {
+    padding:50px 0 50px;
+    min-height:700px;
+    .row {
+      justify-content: space-around;
+      .product {
+        position:relative;
+        div {
+          position:absolute;
+          margin:auto;
+          left:0;
+          right:0;
+
+          &.product_img {
+            max-width:90%;
+          }
+
+          &.size {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            span {
+              font-size: 80px;
+              font-weight: bold;
+              font-style: italic;
+              &.size_775 {
+                color:#248b10;
+              }
+              &.size_800 {
+                color:#ead010;
+              }
+              &.size_825 {
+                color:#0d4870;
+              }
+              &.size_850 {
+                color:#bf1a1e;
+              }
+              &.size_875 {
+                color:#001221;
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+  /****************************
+  ********************* PHOTOS
+  ****************************/
+
+  .photos {
+
+    .row {
+      height:800px;
+      position:relative;
+
+      figure {
+        position:absolute;
+        &#photo_1 {
+          top:25%;
+          left:0;
+          max-width:20%;
+          z-index:1;
+        }
+        &#photo_2 {
+          top:0;
+          left:18%;
+          max-width:25%;
+          z-index:2;
+        }
+        &#photo_3 {
+          top:15%;
+          left:40%;
+          max-width:35%;
+          z-index:3;
+        }
+        &#photo_4 {
+          top:-5%;
+          left:70%;
+          max-width:30%;
+          z-index:4;
+        }
+        &#photo_5 {
+          left: 15%;
+          top: 50%;
+          max-width: 28%;
+          z-index:5;
+        }
+        &#photo_6 {
+          top:30%;
+          left:73%;
+          max-width:20%;
+          z-index:2;
+        }
+      }
+    }
+
+
+  }
+
+  .shop {
+    .title {
+      h3 {
+        margin-top: 0px;
+        text-align: right;
+        font-size: 3.5em;
+        font-style: italic;
+        text-transform: uppercase;
+      }
+    }
+    .product {
+      figure {
+        margin: 50px 0 50px;
+      }
+      .product_info {
+        h4 {
+          font-size: 2.7rem;
+        }
+        .product_price {
+          margin-bottom:25px;
+          span {
+            margin-left:20px;
+            font-family: "RobotoCondensed", sans-serif;
+            font-weight: 700;
+            font-size: 45px;
+            padding: 6px 30px 10px;
+            background-color: #ffea28;
+          }
+        }
+
+      }
+    }
+  }
+
 
 
 

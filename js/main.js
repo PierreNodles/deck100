@@ -34,6 +34,53 @@ jQuery(function($) {
   backgroundHeight();
 
 
+///////////////////////
+//// FEATURES SLIDER
+//////////////////////
+
+
+var $slider_features = $('.features'), // on cible le bloc du slider
+$slide_features = $('.features .board'), // on cible les slides contenues dans le slider
+$slide_features_height = $slide_features.height(), // On récupère la hauteur des slides
+indexSlide_features = $slide_features.length - 1, // on définit l'index du dernier élément
+i_features = 0, // on initialise un compteur
+$slideToDisplay = $slide_features.eq(i_features); // enfin, on cible la slide à afficher, qui possède l'index i (0 pour l'instant)
+$slideToDisplay.fadeIn(500); // Et on la fait apparaître
+
+// Definition du déclencheur de l'animation et récupération de sa position
+var $slider_trigger = $('.decathlon_skateboarding .nav');
+var top = $slider_trigger.offset().top;
+
+
+// Gestion de l'animation
+$(window).scroll(function (event) {
+
+    var scroll = $(window).scrollTop();
+
+    if (scroll < top) {
+      i_features_target = 0;
+    } else {
+      i_features_target = 1;
+    }
+
+    if ( i_features_target != i_features ){
+
+      $slideToDisplay = $slide_features.eq(i_features_target);
+      var $oldSlide_features = $slide_features.eq(i_features);
+
+      $slideToDisplay.fadeIn(500);
+      $oldSlide_features.fadeOut(500);
+
+      i_features = i_features_target;
+    }
+
+});
+
+
+// On donne au slider la taille des slides
+$slider_features.height($slide_features_height);
+
+
 
   ////////////////////////
   // SLIDER PRODUCT - BOUTIQUE
@@ -148,9 +195,9 @@ jQuery(function($) {
         iImg = 0;
       }
 
-$imgs.each(function(){
-  $(this).removeClass('active');
-})
+      $imgs.each(function(){
+        $(this).removeClass('active');
+      })
       $currentImg = $imgs.eq(iImg);
       $currentImg.addClass('active');
       iImg++;
@@ -175,39 +222,92 @@ $imgs.each(function(){
 
 
 
-////////////////////////
-// GREETINGS FROM LILLE
-///////////////////////
+  ////////////////////////
+  // GREETINGS FROM LILLE
+  ///////////////////////
 
-var $puce = $('.puce');
+  var $puce = $('.puce');
 
-$puce.click(function(){
-  $puce.removeClass('active');
-  $(this).addClass('active');
-  var position = $(this).attr('position');
+  $puce.click(function(){
+    $puce.removeClass('active');
+    $(this).addClass('active');
+    var position = $(this).attr('position');
 
-  switch (position) {
-  case '0':
-  $('.greetings').css('background-image', "url('img/greetings_1.jpg')");
-  break;
-  case '1':
-  $('.greetings').css('background-image', "url('img/greetings_2.jpg')");
-  break;
-  case '2':
-  $('.greetings').css('background-image', "url('img/greetings_3.jpg')");
-  break;
-  case '3':
-  $('.greetings').css('background-image', "url('img/greetings_4.jpg')");
-  break;
+    switch (position) {
+      case '0':
+      $('.greetings').css('background-image', "url('img/greetings_1.jpg')");
+      break;
+      case '1':
+      $('.greetings').css('background-image', "url('img/greetings_2.jpg')");
+      break;
+      case '2':
+      $('.greetings').css('background-image', "url('img/greetings_3.jpg')");
+      break;
+      case '3':
+      $('.greetings').css('background-image', "url('img/greetings_4.jpg')");
+      break;
+
+      default:
+      $('.greetings').css('background-image', "url('img/greetings_1.jpg')");
+
+    }
 
 
-  default:
-  console.log("no match");
+  });
 
-}
+  ////////////////////////
+  ///////// BOARDSIZE
+  ///////////////////////
+
+  var $container = $('.board_size'),
+  $boards = $('.board_size .product .product_img'),
+  $size_div = $('.board_size .product .size'),
+  $size = $('.board_size .product .size span'),
+  $board = $boards.eq(0),
+  height = $board.height();
 
 
-});
+  function size_Height(){
+    $board = $boards.eq(0),
+    height = $board.height();
+    $size_div.each(function(){
+      $(this).height(height);
+    });
+  }
+
+  function container_height() {
+    $board = $boards.eq(0),
+    height = $board.height();
+      console.log(height);
+    $container.innerHeight(height);
+  }
+
+  size_Height();
+  container_height();
+
+  $(window).resize(function() {
+    size_Height();
+    container_height();
+  });
+
+
+  $boards.fadeOut();
+
+  $size_div.hover(function() {
+    var $product_img = $(this).prev();
+    $(this).children('span').fadeOut();
+    $product_img.fadeIn();
+  }, function() {
+    $(this).children('span').fadeIn();
+    var $product_img = $(this).prev();
+    $product_img.fadeOut();
+  });
+
+
+
+
+
+
 
 
 
