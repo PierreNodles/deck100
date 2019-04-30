@@ -34,51 +34,53 @@ jQuery(function($) {
   backgroundHeight();
 
 
-///////////////////////
-//// FEATURES SLIDER
-//////////////////////
+  ///////////////////////
+  //// FEATURES SLIDER
+  //////////////////////
 
 
-var $slider_features = $('.features'), // on cible le bloc du slider
-$slide_features = $('.features .board'), // on cible les slides contenues dans le slider
-$slide_features_height = $slide_features.height(), // On récupère la hauteur des slides
-indexSlide_features = $slide_features.length - 1, // on définit l'index du dernier élément
-i_features = 0, // on initialise un compteur
-$slideToDisplay = $slide_features.eq(i_features); // enfin, on cible la slide à afficher, qui possède l'index i (0 pour l'instant)
-$slideToDisplay.fadeIn(500); // Et on la fait apparaître
+  var $slider_features = $('.features'), // on cible le bloc du slider
+  $slide_features = $('.features .board'), // on cible les slides contenues dans le slider
+  $slide_features_height = $slide_features.height(), // On récupère la hauteur des slides
+  indexSlide_features = $slide_features.length - 1, // on définit l'index du dernier élément
+  i_features = 0, // on initialise un compteur
+  $slideToDisplay = $slide_features.eq(i_features); // enfin, on cible la slide à afficher, qui possède l'index i (0 pour l'instant)
+  $slideToDisplay.fadeIn(500); // Et on la fait apparaître
 
-// Definition du déclencheur de l'animation et récupération de sa position
-var $slider_trigger = $('.decathlon_skateboarding .nav');
-var top = $slider_trigger.offset().top;
+  // Definition du déclencheur de l'animation et récupération de sa position
+  var $slider_trigger = $('.decathlon_skateboarding .nav');
+  var top = $slider_trigger.offset().top;
 
 
-// Gestion de l'animation
-$(window).scroll(function (event) {
+  // Gestion de l'animation
+  $(window).scroll(function (event) {
 
-    var scroll = $(window).scrollTop();
+    if ($(window).width() > 720 ) {
 
-    if (scroll < top) {
-      i_features_target = 0;
-    } else {
-      i_features_target = 1;
+      var scroll = $(window).scrollTop();
+
+      if (scroll < top) {
+        i_features_target = 0;
+      } else {
+        i_features_target = 1;
+      }
+
+      if ( i_features_target != i_features ){
+
+        $slideToDisplay = $slide_features.eq(i_features_target);
+        var $oldSlide_features = $slide_features.eq(i_features);
+
+        $slideToDisplay.fadeIn(500);
+        $oldSlide_features.fadeOut(500);
+
+        i_features = i_features_target;
+      }
     }
-
-    if ( i_features_target != i_features ){
-
-      $slideToDisplay = $slide_features.eq(i_features_target);
-      var $oldSlide_features = $slide_features.eq(i_features);
-
-      $slideToDisplay.fadeIn(500);
-      $oldSlide_features.fadeOut(500);
-
-      i_features = i_features_target;
-    }
-
-});
+  });
 
 
-// On donne au slider la taille des slides
-$slider_features.height($slide_features_height);
+  // On donne au slider la taille des slides
+  $slider_features.height($slide_features_height);
 
 
 
@@ -130,32 +132,7 @@ $slider_features.height($slide_features_height);
   });
 
 
-  // // LANCEMENT DU DEFILEMENT AUTOMATIQUE DU slider_products
-  // var loop;
-  //
-  // function slider(){
-  //
-  //   loop = setTimeout(function(){
-  //
-  //     i++;
-  //     if (i > indexSlide) {
-  //       i = 0;
-  //     }
-  //     changeSlide();
-  //     slider();
-  //   }, 5000);
-  //
-  // }
-  //
-  // slider();
-
-  // On s'assure qu'en cas de nav manuelle, le chrono avant defilement revienne à 0;
-
-  $('.nav').click(function(event) {
-
-    clearTimeout(loop); // On sort de la boucle timeOut créée ans la function carrousel_1
-    slider(); // Puis on la relance
-  });
+  // GESTION DE LA TAILLE DU SLIDER
 
 
   function setSliderHeight() {
@@ -165,12 +142,20 @@ $slider_features.height($slide_features_height);
   }
 
 
+  function setSliderHeight_responsive() {
+    if ($(window).width() < 720) {
+      var $productHeight = $('.col-md-6.left .product_img').height();
+      $('.col-md-6.left').height($productHeight);
+    }
+  }
+  setSliderHeight_responsive();
   setSliderHeight();
 
 
 
   $(window).resize(function() {
 
+    setSliderHeight_responsive();
     setSliderHeight();
   });
 
@@ -179,7 +164,7 @@ $slider_features.height($slide_features_height);
   ///////////////////////////
 
 
-  // LANCEMENT DU DEFILEMENT AUTOMATIQUE DU SLIDER_PRODUCT
+  // LANCEMENT DU DEFILEMENT AUTOMATIQUE DU BOARD SWITCH DECK 100
 
   var $imgs = $('.product_slide.deck100 figure');
   indexImg = $imgs.length - 1, // on définit l'index du dernier élément
@@ -278,7 +263,7 @@ $slider_features.height($slide_features_height);
   function container_height() {
     $board = $boards.eq(0),
     height = $board.height();
-      console.log(height);
+    console.log(height);
     $container.innerHeight(height);
   }
 
