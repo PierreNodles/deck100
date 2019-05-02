@@ -255,6 +255,7 @@
     max-width:100%;
     @include sm {
       background-attachment: scroll;
+      min-height:400px;
     }
   }
 
@@ -855,6 +856,11 @@
         &:hover {
           opacity:1;
           cursor: pointer;
+        }
+
+        @include sm {
+          width:25px;
+          height:25px;
         }
       }
     }
