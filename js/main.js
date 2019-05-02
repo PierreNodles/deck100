@@ -1,6 +1,8 @@
 jQuery(function($) {
 
   var $window = $(window);
+  var isMobile = ($window.width() < 720) ? true : false;
+
 
   //////////////////////
   /////////// JUMBOTRON
@@ -10,9 +12,9 @@ jQuery(function($) {
 
   // Jumbotro full Height
   function setHeight() {
-    windowHeight = $(window).innerHeight() ;
-    if ($(window).width() < 720) {
-      windowHeight = $(window).innerHeight() * 1.05;
+    windowHeight = $window.innerHeight() ;
+    if (isMobile) {
+      windowHeight = $window.innerHeight() * 1.15;
     }
     $('.dp_jumbotron-container').css('height', windowHeight);
     $('.dp_jumbotron').css('min-height', windowHeight*1.055);
@@ -21,7 +23,7 @@ jQuery(function($) {
   setHeight();
 
   // Adaptation de la hauteur en cas de variation de la taille de la fenêtre
-  $(window).resize(function() {
+  $window.resize(function() {
     setHeight();
   });
 
@@ -30,7 +32,7 @@ jQuery(function($) {
     var bH = $(document).height();
     $('#dp_background').css('min-height', bH);;
   }
-  $(window).on('scroll resize', backgroundHeight);
+  $window.on('scroll resize', backgroundHeight);
   backgroundHeight();
 
 
@@ -53,11 +55,11 @@ jQuery(function($) {
 
 
   // Gestion de l'animation
-  $(window).scroll(function (event) {
+  $window.scroll(function (event) {
 
-    if ($(window).width() > 720 ) {
+    if (!isMobile) {
 
-      var scroll = $(window).scrollTop();
+      var scroll = $window.scrollTop();
 
       if (scroll < top) {
         i_features_target = 0;
@@ -143,7 +145,7 @@ jQuery(function($) {
 
 
   function setSliderHeight_responsive() {
-    if ($(window).width() < 720) {
+    if (isMobile) {
       var $productHeight = $('.col-md-6.left .product_img').height();
       $('.col-md-6.left').height($productHeight);
     }
@@ -153,7 +155,7 @@ jQuery(function($) {
 
 
 
-  $(window).resize(function() {
+  $window.resize(function() {
 
     setSliderHeight_responsive();
     setSliderHeight();
@@ -270,7 +272,7 @@ jQuery(function($) {
   size_Height();
   container_height();
 
-  $(window).resize(function() {
+  $window.resize(function() {
     size_Height();
     container_height();
   });
@@ -289,9 +291,39 @@ jQuery(function($) {
   });
 
 
+//////////////////
+//// MOVINGS PHOTOS
+////////////////////
 
 
+$window.scroll(function() {
+  var $photos = $('.photos'),
+  photosTop = $photos.offset().top,
 
+  scrollTop = $(window).scrollTop() + $window.height(),
+
+
+  percentage = (scrollTop - photosTop) / $photos.outerHeight();
+
+
+if (percentage <= 0) {
+  percentage = 0.001;
+} else if(percentage > 1){
+  percentage = 1;
+}
+
+
+console.log(percentage);
+
+  $("#photo_1").css({
+    "top": 1 + 150*(1-percentage),
+    "left": 1 - 300*(1-percentage)
+  });
+  $("#photo_2").css({
+    "top": ($(document).height() - $window.height()) + "px",
+    "left": ($(window).scrollLeft()) + "px"
+  });
+});
 
 
 
