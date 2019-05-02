@@ -294,16 +294,31 @@ jQuery(function($) {
 //////////////////
 //// MOVINGS PHOTOS
 ////////////////////
+var photo_1Top = parseInt($("#photo_1").css('top'), 10),
+photo_1Left = parseInt($("#photo_1").css('left'), 10);
+
+var photo_2Top = parseInt($("#photo_2").css('top'), 10),
+photo_2Left = parseInt($("#photo_2").css('left'), 10);
+
+var photo_3Top = parseInt($("#photo_3").css('top'), 10),
+photo_3Left = parseInt($("#photo_3").css('left'), 10);
+
+var photo_4Top = parseInt($("#photo_4").css('top'), 10),
+photo_4Left = parseInt($("#photo_4").css('left'), 10);
+
+var photo_5Top = parseInt($("#photo_5").css('top'), 10),
+photo_5Left = parseInt($("#photo_5").css('left'), 10);
+
+var photo_6Top = parseInt($("#photo_6").css('top'), 10),
+photo_6Left = parseInt($("#photo_6").css('left'), 10);
 
 
 $window.scroll(function() {
-  var $photos = $('.photos'),
-  photosTop = $photos.offset().top,
-
-  scrollTop = $(window).scrollTop() + $window.height(),
-
-
-  percentage = (scrollTop - photosTop) / $photos.outerHeight();
+  if (!isMobile) {
+  var $photos = $('.photos'), // On récupère la div photos
+  photosTop = $photos.offset().top, // ScrollTop du haut de la div
+  scrollTop = $(window).scrollTop() + $window.height(), // ScrollTop du bas de la div
+  percentage = (scrollTop - photosTop) / $photos.outerHeight(); // Calcul du %age de la div scrollé
 
 
 if (percentage <= 0) {
@@ -313,16 +328,39 @@ if (percentage <= 0) {
 }
 
 
-console.log(percentage);
+
 
   $("#photo_1").css({
-    "top": 1 + 150*(1-percentage),
-    "left": 1 - 300*(1-percentage)
+    "top": photo_1Top - 400*(1-percentage),
+    "left": photo_1Left - 100*(1-percentage)
   });
+
+
   $("#photo_2").css({
-    "top": ($(document).height() - $window.height()) + "px",
-    "left": ($(window).scrollLeft()) + "px"
+    "top": photo_2Top - 150*(1-percentage),
+    "left": photo_2Left - 200*(1-percentage)
   });
+
+  $("#photo_3").css({
+    "top": photo_3Top + 150*(1-percentage),
+    "left": photo_3Left - 200*(1-percentage)
+  });
+
+  $("#photo_4").css({
+    "top": photo_4Top + 150*(1-percentage),
+    "left": photo_4Left + 300*(1-percentage)
+  });
+
+  $("#photo_5").css({
+    "top": photo_5Top - 150*(1-percentage),
+    "left": photo_5Left - 200*(1-percentage)
+  });
+
+  $("#photo_6").css({
+    "top": photo_6Top - 150*(1-percentage),
+    "left": photo_6Left - 200*(1-percentage)
+  });
+}
 });
 
 
