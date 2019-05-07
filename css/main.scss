@@ -137,8 +137,7 @@
   *******************************/
 
   .main_content {
-    background-image: url('../img/body-background.jpg');
-    background-size:cover;
+
     margin-top:-120px;
 
 
@@ -150,7 +149,7 @@
 
     .decathlon_skateboarding {
       flex-direction:column;
-      padding: 250px 5% 0px;
+      padding: 250px 5% 100px;
 
       .logo {
         figure {
@@ -164,11 +163,15 @@
       }
 
       .description_row {
-        width: 80%;
+        width: 100%;
         margin: auto !important;
         .description {
           margin-top:50px;
+          margin-bottom:25px;
           p {
+            font-size:22px;
+            line-height:25px;
+            letter-spacing: 1.2px;
             text-align: center;
             font-weight:bold;
           }
@@ -182,6 +185,10 @@
           max-width:50px;
           margin:auto;
         }
+        &.black {
+          -webkit-filter: brightness(0);
+          filter: brightness(0);
+        }
       }
 
 
@@ -193,7 +200,7 @@
 
     .features {
       position:relative;
-      margin-bottom:150px;
+      margin-bottom:300px;
       @include sm {
         height:auto !important;
       }
@@ -207,7 +214,7 @@
         }
 
         figure {
-          max-width:75%;
+          max-width:100%;
           margin:auto;
           @include sm {
             max-width:100%;
@@ -227,6 +234,8 @@
             border-left: solid 2px #434244;
             padding-left: 30px;
             bottom: -45px;
+            font-size:20px;
+            line-height:22px;
             @include sm {
               position:static;
             }
@@ -245,7 +254,7 @@
   ******************/
 
   .parallax {
-    background-image : url('../img/bg-parallax.png');
+    background-image : url('../img/bg-parallax.jpg');
     background-size:cover;
     background-position:center;
 
@@ -334,6 +343,10 @@
               display:none;
             }
 
+          }
+          &.black {
+            -webkit-filter: brightness(0);
+            filter: brightness(0);
           }
         }
       }
@@ -496,6 +509,7 @@
 
 
             figure.product_img{
+              min-width:200px;
               max-width:50%;
               position:absolute;
               opacity:0;
@@ -767,7 +781,12 @@
 
             figure.product_img{
               max-width:50%;
-              opacity:1;
+              min-width:200px;
+              position:absolute;
+              opacity:0;
+              &.active {
+                opacity:1;
+              }
 
               @include sm {
                 max-width:50%;
@@ -819,53 +838,119 @@
   ************************/
 
   .greetings {
-    background-image: url('../img/greetings_1.jpg');
-    background-size: cover;
-    background-position:center;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    min-height:800px;
     position:relative;
-    padding-bottom:100px;
-
     figure {
-      max-width: 30%;
-      @include sm {
-        max-width:90%;
-      }
-    }
-
-    ul {
-      display: flex;
-      position: absolute;
-      bottom: 10%;
+      max-width: 40%;
+      POSITION: absolute;
+      top: 30%;
+      z-index: 999;
       margin: auto;
-      padding: 0 !important;
-      li {
-        width: 12px;
-        height: 12px;
-        background-color: white;
-        margin: 0 10px;
-        list-style: none;
-        border-radius: 50%;
-        opacity:0.5;
-        &.active {
-          opacity:1;
-        }
-        &:hover {
-          opacity:1;
-          cursor: pointer;
-        }
-
-        @include sm {
-          width:25px;
-          height:25px;
-        }
+      left: 0;
+      right: 0;
+      @include sm {
+        max-width:80%;
       }
     }
+    .slider {
+      width: 100%;
+      margin: 0 auto;
+      overflow: hidden;
+      background: white;
+      .slider-items-container {
+        display: flex;
+        flex-wrap: wrap;
+        height: auto;
+        transition: transform 0.35s ease-in-out;
+        .slider-item {
 
+        }
+
+      }
+      .dots {
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        bottom: 10%;
+        margin: auto;
+        padding: 0 !important;
+        left: 0;
+        right: 0;
+        .dot {
+          transition: 0.15s ease-in-out;
+          width: 12px;
+          height: 12px;
+          background-color: white;
+          margin: 0 10px;
+          list-style: none;
+          border-radius: 50%;
+          opacity:0.5;
+          &.active {
+            opacity:1;
+          }
+          &:hover {
+            opacity:1;
+            cursor: pointer;
+          }
+
+          @include sm {
+            width:25px;
+            height:25px;
+          }
+        }
+
+      }
+    }
   }
+
+  //   .greetings {
+  //     background-image: url('../img/greetings_1.jpg');
+  //     background-size: cover;
+  //     background-position:center;
+  //     display:flex;
+  //     align-items: center;
+  //     justify-content: center;
+  //     min-height:800px;
+  //     position:relative;
+  //     padding-bottom:100px;
+  //
+  //
+  //   figure {
+  //     max-width: 30%;
+  //     @include sm {
+  //       max-width:90%;
+  //     }
+  //   }
+  //
+  //   ul {
+  //     display: flex;
+  //     position: absolute;
+  //     bottom: 10%;
+  //     margin: auto;
+  //     padding: 0 !important;
+  //     li {
+  //       width: 12px;
+  //       height: 12px;
+  //       background-color: white;
+  //       margin: 0 10px;
+  //       list-style: none;
+  //       border-radius: 50%;
+  //       opacity:0.5;
+  //       &.active {
+  //         opacity:1;
+  //       }
+  //       &:hover {
+  //         opacity:1;
+  //         cursor: pointer;
+  //       }
+  //
+  //       @include sm {
+  //         width:25px;
+  //         height:25px;
+  //       }
+  //     }
+  //   }
+  //
+  // }
 
 
   /************************
@@ -930,17 +1015,23 @@
   ****************************/
 
   .photos {
+    padding-bottom:180px;
+    background-image: url('../img/photos_background.jpg');
+    background-size:cover;
+    background-position: bottom;
 
     .row {
-      height:800px;
+      min-height:600px;
       position:relative;
+
 
       figure {
         position:absolute;
+        box-shadow: 0px 0px 100px rgba(0,0,0,0.1);
         &#photo_1 {
-          top:25%;
+          top:35%;
           left:0;
-          max-width:20%;
+          max-width:15%;
           z-index:1;
           @include sm {
             max-width:100%;
@@ -949,8 +1040,8 @@
         }
         &#photo_2 {
           top:0;
-          left:18%;
-          max-width:25%;
+          left:13%;
+          max-width:20%;
           z-index:2;
           @include sm {
             left:0;
@@ -961,8 +1052,8 @@
         }
         &#photo_3 {
           top:15%;
-          left:40%;
-          max-width:35%;
+          left:32%;
+          max-width:40%;
           z-index:3;
           @include sm {
             top: 5%;
@@ -973,7 +1064,7 @@
         }
         &#photo_4 {
           top:-5%;
-          left:70%;
+          right:0%;
           max-width:30%;
           z-index:4;
           @include sm {
@@ -983,7 +1074,7 @@
         }
         &#photo_5 {
           left: 15%;
-          top: 50%;
+          bottom:0;
           max-width: 28%;
           z-index:5;
           @include sm {
@@ -993,8 +1084,8 @@
           }
         }
         &#photo_6 {
-          top:30%;
-          left:73%;
+          bottom:5%;
+          left:68%;
           max-width:20%;
           z-index:2;
           @include sm {
@@ -1015,7 +1106,7 @@
       h3 {
         margin-top: 0px;
         text-align: right;
-        font-size: 3.5em;
+        font-size: 2.5em;
         font-style: italic;
         text-transform: uppercase;
       }
@@ -1026,7 +1117,7 @@
       }
       .product_info {
         h4 {
-          font-size: 2.7rem;
+          font-size: 1.7rem;
         }
         .product_price {
           margin-bottom:25px;
@@ -1034,7 +1125,7 @@
             margin-left:20px;
             font-family: "RobotoCondensed", sans-serif;
             font-weight: 700;
-            font-size: 45px;
+            font-size: 35px;
             padding: 6px 30px 10px;
             background-color: #ffea28;
           }

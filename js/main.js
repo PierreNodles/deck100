@@ -35,6 +35,14 @@ jQuery(function($) {
   $window.on('scroll resize', backgroundHeight);
   backgroundHeight();
 
+  //////////////////////////////////////////
+  /////////// DECATHLON SKATEBOARD - BLOC 2
+  //////////////////////////////////////////
+
+
+  var time=setInterval(function(){
+    $('.nav').toggleClass('black');
+  },1000);
 
   ///////////////////////
   //// FEATURES SLIDER
@@ -50,8 +58,8 @@ jQuery(function($) {
   $slideToDisplay.fadeIn(500); // Et on la fait apparaître
 
   // Definition du déclencheur de l'animation et récupération de sa position
-  var $slider_trigger = $('.decathlon_skateboarding .nav');
-  var top = $slider_trigger.offset().top;
+  var $slider_trigger = $('.features .row.board');
+  var top = $slider_trigger.offset().top-100;
 
 
   // Gestion de l'animation
@@ -168,34 +176,34 @@ jQuery(function($) {
 
   // LANCEMENT DU DEFILEMENT AUTOMATIQUE DU BOARD SWITCH DECK 100
 
-  var $imgs = $('.product_slide.deck100 figure');
-  indexImg = $imgs.length - 1, // on définit l'index du dernier élément
-  iImg = 0, // on initialise un compteur
-  $currentImg = $imgs.eq(indexImg); // enfin, on cible la slide courante, qui possède l'index i (0 pour l'instant)
-  $currentImg.toggleClass('active');
+  var $imgs_deck100 = $('.product_slide.deck100 figure');
+  indexImg_deck100 = $imgs_deck100.length - 1, // on définit l'index du dernier élément
+  iImg_deck100 = 0, // on initialise un compteur
+  $currentImg_deck100 = $imgs_deck100.eq(indexImg_deck100); // enfin, on cible la slide courante, qui possède l'index i (0 pour l'instant)
+  $currentImg_deck100.toggleClass('active');
 
-  function slider(){
+  function sliderDeck100(){
 
     setTimeout(function(){
 
-      if (iImg > indexImg) {
-        iImg = 0;
+      if (iImg_deck100 > indexImg_deck100) {
+        iImg_deck100 = 0;
       }
 
-      $imgs.each(function(){
+      $imgs_deck100.each(function(){
         $(this).removeClass('active');
       })
-      $currentImg = $imgs.eq(iImg);
-      $currentImg.addClass('active');
-      iImg++;
-      slider();
+      $currentImg_deck100 = $imgs_deck100.eq(iImg_deck100);
+      $currentImg_deck100.addClass('active');
+      iImg_deck100++;
+      sliderDeck100();
 
     }, 3000);
 
 
   }
 
-  slider();
+  sliderDeck100();
 
 
 
@@ -212,35 +220,105 @@ jQuery(function($) {
   ////////////////////////
   // GREETINGS FROM LILLE
   ///////////////////////
+  function setSlider(){
 
-  var $puce = $('.puce');
+    $(".slider").each( function(){
 
-  $puce.click(function(){
-    $puce.removeClass('active');
-    $(this).addClass('active');
-    var position = $(this).attr('position');
+      var $slider = $(this),
+      $itemscontainer = $slider.find(".slider-items-container"),
+      $items = $slider.find('.slider-item'),
+      itemsNumber = $(".slider-item").length;
 
-    switch (position) {
-      case '0':
-      $('.greetings').css('background-image', "url('img/greetings_1.jpg')");
-      break;
-      case '1':
-      $('.greetings').css('background-image', "url('img/greetings_2.jpg')");
-      break;
-      case '2':
-      $('.greetings').css('background-image', "url('img/greetings_3.jpg')");
-      break;
-      case '3':
-      $('.greetings').css('background-image', "url('img/greetings_4.jpg')");
-      break;
+      if ($itemscontainer.find(".slider-item.active").length == 0){
+        $itemscontainer.find(".slider-item").first().addClass("active");
+      }
 
-      default:
-      $('.greetings').css('background-image', "url('img/greetings_1.jpg')");
+      function setWidth(){
+        var totalWidth = $window.width()*itemsNumber;
+        $itemscontainer.width(totalWidth);
+        var itemWidth = totalWidth/itemsNumber;
+        $items.each(function(){
+          $(this).width(itemWidth);
+        })
+      }
 
-    }
+      function setTransform(){
+
+        var $activeItem = $itemscontainer.find(".slider-item.active"),
+        activeItemOffset = $activeItem.offset().left,
+        itemsContainerOffset = $itemscontainer.offset().left,
+        totalOffset = activeItemOffset - itemsContainerOffset
+
+        $itemscontainer.css({"transform": "translate( -"+totalOffset+"px, 0px)"})
+
+      }
 
 
-  });
+      function makeDots(){
+        var activeItem = $itemscontainer.find(".slider-item.active"),
+        activeItemIndex = activeItem.index(),
+        sliderItemTotal = $itemscontainer.find(".slider-item").length;
+
+        for (i = 0; i < sliderItemTotal; i++){
+          $slider.find(".dots").append("<div class='dot'></div>")
+        }
+
+        $slider.find(".dots").find(".dot").eq(activeItemIndex).addClass("active")
+
+      }
+
+      setWidth();
+      setTransform();
+      makeDots();
+
+      $(window).resize( function(){
+        setWidth();
+        setTransform();
+      });
+
+
+      $slider.find(".dots").find(".dot").on('click', function(e){
+
+        var dotIndex = $(this).index(),
+        totalOffset = $itemscontainer.find(".slider-item").eq(dotIndex).offset().left - $itemscontainer.offset().left;
+
+        $itemscontainer.find(".slider-item.active").removeClass("active");
+        $itemscontainer.find(".slider-item").eq(dotIndex).addClass("active");
+        $slider.find(".dots").find(".dot").removeClass("active");
+        $(this).addClass("active")
+
+        $itemscontainer.css({"transform": "translate( -"+totalOffset+"px, 0px)"})
+
+      });
+
+    });
+
+  }
+
+  setSlider();
+
+
+  // GESTION DU DEFILEMENT AUTOMATIQUE
+
+  var slide_delay = 4500;
+  var $dots = $('.dot');
+  var numberOfDots = $dots.length;
+
+
+  function slideThroughGreetings() {
+    $dots.each(function(index) {
+      var that = this;
+      var t = setTimeout(function() {
+        $(that).trigger('click');
+      }, slide_delay * index);
+    });
+  }
+
+  slideThroughGreetings();
+  var time=setInterval(function(){
+    slideThroughGreetings();
+  },slide_delay*numberOfDots);
+
 
   ////////////////////////
   ///////// BOARDSIZE
@@ -290,78 +368,132 @@ jQuery(function($) {
     $product_img.fadeOut();
   });
 
-
-//////////////////
-//// MOVINGS PHOTOS
-////////////////////
-var photo_1Top = parseInt($("#photo_1").css('top'), 10),
-photo_1Left = parseInt($("#photo_1").css('left'), 10);
-
-var photo_2Top = parseInt($("#photo_2").css('top'), 10),
-photo_2Left = parseInt($("#photo_2").css('left'), 10);
-
-var photo_3Top = parseInt($("#photo_3").css('top'), 10),
-photo_3Left = parseInt($("#photo_3").css('left'), 10);
-
-var photo_4Top = parseInt($("#photo_4").css('top'), 10),
-photo_4Left = parseInt($("#photo_4").css('left'), 10);
-
-var photo_5Top = parseInt($("#photo_5").css('top'), 10),
-photo_5Left = parseInt($("#photo_5").css('left'), 10);
-
-var photo_6Top = parseInt($("#photo_6").css('top'), 10),
-photo_6Left = parseInt($("#photo_6").css('left'), 10);
+  ///////////////////////////
+  //// DECK 100 BOARD switch
+  ///////////////////////////
 
 
-$window.scroll(function() {
-  if (!isMobile) {
-  var $photos = $('.photos'), // On récupère la div photos
-  photosTop = $photos.offset().top, // ScrollTop du haut de la div
-  scrollTop = $(window).scrollTop() + $window.height(), // ScrollTop du bas de la div
-  percentage = (scrollTop - photosTop) / $photos.outerHeight(); // Calcul du %age de la div scrollé
+  // LANCEMENT DU DEFILEMENT AUTOMATIQUE DU BOARD SWITCH DECK 100
+
+  var $imgs = $('.product_slide.deck120 figure');
+  indexImg = $imgs.length - 1, // on définit l'index du dernier élément
+  iImg = 0, // on initialise un compteur
+  $currentImg = $imgs.eq(indexImg); // enfin, on cible la slide courante, qui possède l'index i (0 pour l'instant)
+  $currentImg.toggleClass('active');
+
+  function sliderDeck120(){
+
+    setTimeout(function(){
+
+      if (iImg > indexImg) {
+        iImg = 0;
+      }
+
+      $imgs.each(function(){
+        $(this).removeClass('active');
+      })
+      $currentImg = $imgs.eq(iImg);
+      $currentImg.addClass('active');
+      iImg++;
+      sliderDeck120();
+
+    }, 3000);
 
 
-if (percentage <= 0) {
-  percentage = 0.001;
-} else if(percentage > 1){
-  percentage = 1;
-}
+  }
+
+  sliderDeck120();
 
 
+  //////////////////
+  //// MOVINGS PHOTOS
+  ////////////////////
 
 
-  $("#photo_1").css({
-    "top": photo_1Top - 400*(1-percentage),
-    "left": photo_1Left - 100*(1-percentage)
+  // CONTAINER HEIGHT
+  function setPhotoContainerHeight() {
+    var height = $window.height();
+
+    $('.container_fluid.photos .row').height(height);
+  }
+  setPhotoContainerHeight();
+  $window.resize(function() {
+    setPhotoContainerHeight();
   });
 
 
-  $("#photo_2").css({
-    "top": photo_2Top - 150*(1-percentage),
-    "left": photo_2Left - 200*(1-percentage)
-  });
 
-  $("#photo_3").css({
-    "top": photo_3Top + 150*(1-percentage),
-    "left": photo_3Left - 200*(1-percentage)
-  });
 
-  $("#photo_4").css({
-    "top": photo_4Top + 150*(1-percentage),
-    "left": photo_4Left + 300*(1-percentage)
-  });
 
-  $("#photo_5").css({
-    "top": photo_5Top - 150*(1-percentage),
-    "left": photo_5Left - 200*(1-percentage)
-  });
+  // GET EACH PHOTOS CSS POSITION
+  var photo_1Top = parseInt($("#photo_1").css('top'), 10),
+  photo_1Left = parseInt($("#photo_1").css('left'), 10);
 
-  $("#photo_6").css({
-    "top": photo_6Top - 150*(1-percentage),
-    "left": photo_6Left - 200*(1-percentage)
+  var photo_2Top = parseInt($("#photo_2").css('top'), 10),
+  photo_2Left = parseInt($("#photo_2").css('left'), 10);
+
+  var photo_3Top = parseInt($("#photo_3").css('top'), 10),
+  photo_3Left = parseInt($("#photo_3").css('left'), 10);
+
+  var photo_4Top = parseInt($("#photo_4").css('top'), 10),
+  photo_4Right = parseInt($("#photo_4").css('right'), 10);
+
+  var photo_5Bottom = parseInt($("#photo_5").css('bottom'), 10),
+  photo_5Left = parseInt($("#photo_5").css('left'), 10);
+
+  var photo_6Bottom = parseInt($("#photo_6").css('bottom'), 10),
+  photo_6Left = parseInt($("#photo_6").css('left'), 10);
+
+
+  $window.scroll(function() {
+    if (!isMobile) {
+      var $photos = $('.photos'), // On récupère la div photos
+      photosTop = $photos.offset().top, // ScrollTop du haut de la div
+      scrollTop = $(window).scrollTop() + $window.height(), // ScrollTop du bas de la div
+      percentage = (scrollTop - photosTop) / $photos.outerHeight(); // Calcul du %age de la div scrollé
+
+
+      if (percentage <= 0) {
+        percentage = 0.001;
+      } else if(percentage > 1){
+        percentage = 1;
+      }
+
+
+
+
+      $("#photo_1").css({
+        "top": photo_1Top - 20*(1-percentage),
+        "left": photo_1Left - 25*(1-percentage)
+      });
+
+
+      $("#photo_2").css({
+        "top": photo_2Top - 15*(1-percentage),
+        "left": photo_2Left - 30*(1-percentage)
+      });
+
+      $("#photo_3").css({
+        "top": photo_3Top + 35*(1-percentage),
+        "left": photo_3Left - 20*(1-percentage)
+      });
+
+      $("#photo_4").css({
+        "top": photo_4Top - 20*(1-percentage),
+        "right": photo_4Right + 15*(1-percentage)
+      });
+
+      $("#photo_5").css({
+        "bottom": photo_5Bottom - 35*(1-percentage),
+        "left": photo_5Left + 10*(1-percentage)
+      });
+
+      $("#photo_6").css({
+        "bottom": photo_6Bottom + 15*(1-percentage),
+        "left": photo_6Left + 10*(1-percentage)
+      });
+    }
   });
-}
-});
 
 
 
