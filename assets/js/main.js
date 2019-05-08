@@ -119,9 +119,6 @@ jQuery(function($) {
 
   changeSlide();
 
-  // AJOUT DES BOUTONS DE NAVIGATION
-  $('.slider_products .container').append('<div class="controls"> <div class="next nav"><span>Accessoires</span><figure><img src="./img/accessoires_arrow.png"></figure></div></div>');
-
   // GESTION DE LA NAVIGATION
   $('.next').click(function(event) {
     i++;
