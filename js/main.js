@@ -236,7 +236,7 @@ jQuery(function($) {
       function setWidth(){
         var totalWidth = $window.width()*itemsNumber;
         $itemscontainer.width(totalWidth);
-        var itemWidth = totalWidth/itemsNumber;
+        var itemWidth = $window.width();
         $items.each(function(){
           $(this).width(itemWidth);
         })
