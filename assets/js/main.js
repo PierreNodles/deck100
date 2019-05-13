@@ -217,6 +217,7 @@ jQuery(function($) {
   ////////////////////////
   // GREETINGS FROM LILLE
   ///////////////////////
+
   function setSlider(){
 
     $(".slider").each( function(){
@@ -256,7 +257,7 @@ jQuery(function($) {
         activeItemIndex = activeItem.index(),
         sliderItemTotal = $itemscontainer.find(".slider-item").length;
 
-        for (i = 0; i < sliderItemTotal; i++){
+        for (iVideo = 0; iVideo < sliderItemTotal; iVideo++){
           $slider.find(".dots").append("<div class='dot'></div>")
         }
 
