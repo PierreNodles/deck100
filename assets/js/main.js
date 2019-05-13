@@ -17,7 +17,7 @@ jQuery(function($) {
       windowHeight = $window.innerHeight() * 1.15;
     }
     $('.dp_jumbotron-container').css('height', windowHeight);
-    $('.dp_jumbotron').css('min-height', windowHeight*1.055);
+    $('.dp_jumbotron').css('min-height', windowHeight*1.1);
   };
 
   setHeight();
